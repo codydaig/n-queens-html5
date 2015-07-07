@@ -7,12 +7,13 @@
   <body>
 
     <script src="lib/underscore.js"></script>
+    <script src="lib/jquery-1.8.3.js"></script>
 
     <div id="status">
       Calculating...
     </div>
     <div id="found">
-    0
+    
     </div>
     <div id="results">
     </div>
@@ -21,8 +22,13 @@
     </div>
 
     <script>
-      
-      var n =10;
+      var n = new RegExp('[\?&amp;]' + 'n' + '=([^&amp;#]*)').exec(window.location.href);
+      if(n === null || n === undefined) {
+        n = 6;
+      } else {
+        n = n[1];
+      }
+      console.log(n);
       var heatmap = [];
       var container = document.getElementById('board-container');
       container.innerHTML = '';
@@ -79,7 +85,7 @@
             }
           }
           var colorScale = _.range(minHeat, maxHeat+1);
-          console.log(colorScale);
+          //console.log(colorScale);
           var diff = Math.floor(100 / colorScale.length);
           for(var x = 0; x < n; x++) {
             for(var y = 0; y < n; y++) {
@@ -104,7 +110,7 @@
           //console.log(rowData);
           //debugger;
           count++;
-          counter.textContent = count;
+          counter.textContent = "So for your browser has found :" count " solutions to the problem.";
           for(var x = 0; x < rowData.length; x++) {
             for (var y = 0; y < rowData[x].length; y++) {
               //console.log(x+'_'+y);
@@ -150,5 +156,13 @@
       });*/
     </script>
     <div>The green indicates the least amount of times that position contianed a solution, <br />while the red indicates the most amount of times that position contained a solution.</div>
+    <form method="GET">
+      <input type="text" name="n" id="n" value="6" />
+      <input type="submit" value="Render"/>
+    </form>
+    <script>
+      var inputField = document.getElementById('n');
+      inputField.value = n;
+    </script>
   </body>
 </html>
