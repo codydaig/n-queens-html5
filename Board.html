@@ -1,0 +1,33 @@
+<html>
+
+<head>
+  <title>N-Queens</title>
+
+  <script src="lib/backbone.js"></script>
+  <script src="lib/underscore.js"></script>
+
+  <script src="nqueens.js"></script>
+  <script src="BoardView.js"></script>
+</head>
+
+<body>
+
+<div id="message">
+</div>
+
+<script>
+
+  var worker = new Worker('worker.js');
+  var board = new Board({n:5});
+  worker.postMessage(board);
+
+  worker.addEventListener('message', function(e){
+    var data = e.data;
+    document.getElementById('message').textContent = e.data;
+  });
+
+</script>
+
+</body>
+
+</html>
