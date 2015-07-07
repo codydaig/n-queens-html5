@@ -22,7 +22,7 @@
 
     <script>
       
-      var n = 9;
+      var n =10;
       var heatmap = [];
       var container = document.getElementById('board-container');
       container.innerHTML = '';
@@ -78,33 +78,22 @@
 
             }
           }
-          var colorScale = _.range(minHeat, maxHeat);
+          var colorScale = _.range(minHeat, maxHeat+1);
           console.log(colorScale);
+          var diff = Math.floor(100 / colorScale.length);
           for(var x = 0; x < n; x++) {
             for(var y = 0; y < n; y++) {
               var oldHeat = heatmap[x][y];
-              var heat = Math.floor(heatmap[x][y] * 1000);
-              //var heat = heatmap[x][y];
-              
-
-              var diff = maxHeat - minHeat;
-              //var color = _.indexOf(colorScale, heat);
-              /*
-              var redVal = color * diff;
-              var blueVal = 255;
-              var greenVal = 255;
-              */
-              var redVal = (100 - heat) + '%';
-              var blueVal = heat + '%';
-              var greenVal = heat + '%';
-              var hVal = oldHeat * 550;
+              var heat = heatmap[x][y];
+              var color = _.indexOf(colorScale, heat);
+              color *= diff;
+              color = 100-color;
+              var hVal = color;
               var sVal = 50;
-              var lVal = 100 * oldHeat + 50;
-              //var val = Math.floor(normalizedHeat * 255 + 100);
+              var lVal = 55;
               var cell = document.getElementById(x  + '_' + y);
               cell.className = "cell";
-              cell.textContent = Math.floor(hVal);
-              //cell.style.background = 'rgb(' + redVal + ', ' + greenVal + ', ' + blueVal + ')'; 
+              //cell.textContent = heatmap[x][y];
               cell.style.background = 'hsl(' + hVal + ', ' + sVal + '%, ' + lVal + '%)'; 
 
             }
@@ -160,5 +149,6 @@
         countNQueensSolutions(n);
       });*/
     </script>
+    <div>The green indicates the least amount of times that position contianed a solution, <br />while the red indicates the most amount of times that position contained a solution.</div>
   </body>
 </html>
