@@ -110,7 +110,7 @@
           //console.log(rowData);
           //debugger;
           count++;
-          counter.textContent = "So for your browser has found :" count " solutions to the problem.";
+          counter.innerHTML = "So for your browser has found <strong>" + count + "</strong> solutions to the problem.";
           for(var x = 0; x < rowData.length; x++) {
             for (var y = 0; y < rowData[x].length; y++) {
               //console.log(x+'_'+y);
