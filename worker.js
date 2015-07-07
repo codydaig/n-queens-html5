@@ -10,7 +10,7 @@ self.addEventListener('message', function(e){
    
     var board = new Board({n:data});
     
-    var n = 5;
+    var n = data;
 
     var returnBoard = [];
     var freeze = false;
@@ -42,6 +42,7 @@ self.addEventListener('message', function(e){
             } else {
             solutionCount++;
             }
+            self.postMessage({msg: 'found', payload: board.rows()});
           } else {
             processRow(rowIndex + 1, doubleScore || (rowIndex === 0 && i <= (n / 2) - 1));
           }
@@ -55,7 +56,7 @@ self.addEventListener('message', function(e){
     //return solutionCount;
   //};
   
-  self.postMessage(solutionCount);
+  self.postMessage({msg: 'done', payload: solutionCount});
   //self.postMessage(board.rows());
 });
 

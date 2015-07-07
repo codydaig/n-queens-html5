@@ -20,23 +20,100 @@
       .inConflict{
           background-color: red;
       }
+      .cell_pos {
+        width: 30px;
+        height: 30px;
+        margin: 3px;
+        float: left;
+        border-style: solid;
+        border-color: red;
+        border-width: 1px;
+        background-color: grey;
+      }
+      .cell_neg {
+        width: 30px;
+        height: 30px;
+        margin: 3px;
+        float: left;
+        border-style: solid;
+        border-color: red;
+        border-width: 1px;
+      }
+      .row {
+        width: 100%;
+        display: inline-block;
+      }
     </style>
   </head>
   <body>
 
-    <div id="message">
+    <div id="status">
+      Calculating...
     </div>
+    <div id="found">
+    0
+    </div>
+    <div id="results">
+    </div>
+
+    <div id="board-container">
+    </div>
+
+    <script>
+      var n = 15;
+      var container = document.getElementById('board-container');
+      var counter = document.getElementById('found');
+      var count = 0;
+      for(var x = 0; x < n; x++) {
+        var row = document.createElement('DIV');
+        row.className = 'row';
+
+        for(var y = 0; y < n; y++) {
+          var node = document.createElement('DIV');
+          node.textContent = ":)";
+          node.className = 'cell';
+          node.id = x + '_' + y;
+          // ToDo: We can alternate and create "odd" rows for the pattern
+
+          row.appendChild(node);
+          //c.textContent += 'TEST';
+        }
+        container.appendChild(row);
+      }
+    </script>
 
     <script>
       // This function uses a board visualizer lets you view an interactive version of any piece matrix.
 
       var worker = new Worker('worker.js');
-      worker.postMessage(4);
+      worker.postMessage(15);
 
       worker.addEventListener('message', function(e){
         var data = e.data;
-        console.log(e.data);
-        document.getElementById('message').textContent = e.data;
+        if(data['msg'] === 'done'){
+          document.getElementById('status').textContent = 'All finished!';
+        }
+        if(data['msg'] === 'found'){
+          var rowData = data['payload'];
+          //console.log(rowData);
+          //debugger;
+          count++;
+          counter.textContent = count;
+          for(var x = 0; x < rowData.length; x++) {
+            for (var y = 0; y < rowData[x].length; y++) {
+              //console.log(x+'_'+y);
+              var element = document.getElementById(x+'_'+y);
+              element.textContent = data['payload'][x][y];
+              
+              if(data['payload'][x][y] === 1) {
+                element.className = 'cell_pos';
+              } else {
+                element.className = 'cell_neg';
+              }
+            }
+          }
+          //document.getElementById('results').textContent += data['payload'];
+        }
       });
       /*
       window.displayBoard = function(matrix){
