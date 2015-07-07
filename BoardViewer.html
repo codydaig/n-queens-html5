@@ -19,9 +19,10 @@
     </div>
 
     <script>
-      
-      var n = 5;
+
+      var n = 10;
       var container = document.getElementById('board-container');
+      container.innerHTML = '';
       var counter = document.getElementById('found');
       var count = 0;
       for(var x = 0; x < n; x++) {
@@ -45,9 +46,7 @@
         }
         container.appendChild(row);
       }
-    </script>
-
-    <script>
+    
       // This function uses a board visualizer lets you view an interactive version of any piece matrix.
 
       var worker = new Worker('worker.js');
