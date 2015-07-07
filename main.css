@@ -14,6 +14,8 @@ body{
   text-align: center;
   line-height: 40px;
   color: white;
+  background-image: url('chess.png');
+  background-position: 0px 40px;
   /*
   border-style: solid;
   border-color: black;
@@ -25,7 +27,8 @@ body{
 }
 
 .pos {
-  background-color: green;
+  /*  background-color: green; */
+  background-position: 0px 0px;
 }
 
 .row {

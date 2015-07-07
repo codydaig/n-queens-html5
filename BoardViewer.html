@@ -20,7 +20,7 @@
 
     <script>
 
-      var n = 10;
+      var n = 16;
       var container = document.getElementById('board-container');
       container.innerHTML = '';
       var counter = document.getElementById('found');
@@ -67,7 +67,6 @@
             for (var y = 0; y < rowData[x].length; y++) {
               //console.log(x+'_'+y);
               var element = document.getElementById(x+'_'+y);
-              element.textContent = data['payload'][x][y] === 1 ? ':)' : '';
               
               if(data['payload'][x][y] === 1) {
                 element.className = 'cell pos';
