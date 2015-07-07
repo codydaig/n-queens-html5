@@ -2,48 +2,7 @@
 <html>
   <head>
     <title>n-rooks solver</title>
-    <style type="text/css">
-      .square {
-        width: 30px;
-        height: 30px;
-        text-align: center;
-      }
-
-      .positive {
-        background-color: lightgrey;
-      }
-
-      .negative {
-        background-color: grey;
-      }
-
-      .inConflict{
-          background-color: red;
-      }
-      .cell_pos {
-        width: 30px;
-        height: 30px;
-        margin: 3px;
-        float: left;
-        border-style: solid;
-        border-color: red;
-        border-width: 1px;
-        background-color: grey;
-      }
-      .cell_neg {
-        width: 30px;
-        height: 30px;
-        margin: 3px;
-        float: left;
-        border-style: solid;
-        border-color: red;
-        border-width: 1px;
-      }
-      .row {
-        width: 100%;
-        display: inline-block;
-      }
-    </style>
+    <link rel="stylesheet" href="main.css"/>
   </head>
   <body>
 
@@ -60,7 +19,8 @@
     </div>
 
     <script>
-      var n = 15;
+      
+      var n = 5;
       var container = document.getElementById('board-container');
       var counter = document.getElementById('found');
       var count = 0;
@@ -70,8 +30,13 @@
 
         for(var y = 0; y < n; y++) {
           var node = document.createElement('DIV');
-          node.textContent = ":)";
-          node.className = 'cell';
+          node.textContent = "";
+          if((x+y) % 2 === 0){
+            node.className = 'cell even';
+          } else {
+            node.className = 'cell odd';
+          }
+          
           node.id = x + '_' + y;
           // ToDo: We can alternate and create "odd" rows for the pattern
 
@@ -86,7 +51,7 @@
       // This function uses a board visualizer lets you view an interactive version of any piece matrix.
 
       var worker = new Worker('worker.js');
-      worker.postMessage(15);
+      worker.postMessage(n);
 
       worker.addEventListener('message', function(e){
         var data = e.data;
@@ -103,12 +68,17 @@
             for (var y = 0; y < rowData[x].length; y++) {
               //console.log(x+'_'+y);
               var element = document.getElementById(x+'_'+y);
-              element.textContent = data['payload'][x][y];
+              element.textContent = data['payload'][x][y] === 1 ? ':)' : '';
               
               if(data['payload'][x][y] === 1) {
-                element.className = 'cell_pos';
+                element.className = 'cell pos';
               } else {
-                element.className = 'cell_neg';
+                element.className = 'cell neg';
+              }
+              if((x+y) % 2 === 0){
+                element.className += ' even';
+              } else {
+                element.className += ' odd';
               }
             }
           }

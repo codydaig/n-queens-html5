@@ -1,0 +1,36 @@
+body{
+  margin: 0;
+  padding: 0;
+  border-width: 0;
+}
+
+.cell {
+  width: 40px;
+  height: 40px;
+  margin: 0px;
+  padding: 0px;
+  /* margin: 3px; */
+  float: left;
+  text-align: center;
+  line-height: 40px;
+  color: white;
+  /*
+  border-style: solid;
+  border-color: black;
+  border-width: 1px; */
+}
+
+.even {
+  background-color: lightgrey;
+}
+
+.pos {
+  background-color: green;
+}
+
+.row {
+  width: 100%;
+  display: inline-block;
+  margin:-2px;
+  padding:0;
+}
