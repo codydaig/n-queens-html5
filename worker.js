@@ -3,7 +3,6 @@ self.addEventListener('message', function(e){
     importScripts('lib/underscore.js', 'lib/backbone.js', 'Board.js', 'BoardView.js');
       
     var board = new Board({n:n});
-
     if (n === 0) {
       return 1;
     }

@@ -6,6 +6,8 @@
   </head>
   <body>
 
+    <script src="lib/underscore.js"></script>
+
     <div id="status">
       Calculating...
     </div>
@@ -19,8 +21,9 @@
     </div>
 
     <script>
-
-      var n = 16;
+      
+      var n = 9;
+      var heatmap = [];
       var container = document.getElementById('board-container');
       container.innerHTML = '';
       var counter = document.getElementById('found');
@@ -28,10 +31,12 @@
       for(var x = 0; x < n; x++) {
         var row = document.createElement('DIV');
         row.className = 'row';
+        heatmap[x] = [];
 
         for(var y = 0; y < n; y++) {
           var node = document.createElement('DIV');
           node.textContent = "";
+          heatmap[x][y] = 0;
           if((x+y) % 2 === 0){
             node.className = 'cell even';
           } else {
@@ -54,8 +59,56 @@
 
       worker.addEventListener('message', function(e){
         var data = e.data;
+        var minHeat;
+        var maxHeat;
         if(data['msg'] === 'done'){
           document.getElementById('status').textContent = 'All finished!';
+          for(var x = 0; x < n; x++) {
+            for(var y = 0; y < n; y++) {
+              
+              heatmap[x][y] = Math.floor((heatmap[x][y] / count) * 100);
+              if (maxHeat === undefined || heatmap[x][y] > maxHeat) {
+                maxHeat = heatmap[x][y];
+              }
+              if (minHeat === undefined || heatmap[x][y] < minHeat) {
+                minHeat = heatmap[x][y];
+              }
+              
+              //cell.style.background = 'rgb(100, 150, 200)';
+
+            }
+          }
+          var colorScale = _.range(minHeat, maxHeat);
+          console.log(colorScale);
+          for(var x = 0; x < n; x++) {
+            for(var y = 0; y < n; y++) {
+              var oldHeat = heatmap[x][y];
+              var heat = Math.floor(heatmap[x][y] * 1000);
+              //var heat = heatmap[x][y];
+              
+
+              var diff = maxHeat - minHeat;
+              //var color = _.indexOf(colorScale, heat);
+              /*
+              var redVal = color * diff;
+              var blueVal = 255;
+              var greenVal = 255;
+              */
+              var redVal = (100 - heat) + '%';
+              var blueVal = heat + '%';
+              var greenVal = heat + '%';
+              var hVal = oldHeat * 550;
+              var sVal = 50;
+              var lVal = 100 * oldHeat + 50;
+              //var val = Math.floor(normalizedHeat * 255 + 100);
+              var cell = document.getElementById(x  + '_' + y);
+              cell.className = "cell";
+              cell.textContent = Math.floor(hVal);
+              //cell.style.background = 'rgb(' + redVal + ', ' + greenVal + ', ' + blueVal + ')'; 
+              cell.style.background = 'hsl(' + hVal + ', ' + sVal + '%, ' + lVal + '%)'; 
+
+            }
+          }
         }
         if(data['msg'] === 'found'){
           var rowData = data['payload'];
@@ -67,7 +120,7 @@
             for (var y = 0; y < rowData[x].length; y++) {
               //console.log(x+'_'+y);
               var element = document.getElementById(x+'_'+y);
-              
+              heatmap[x][y] += data['payload'][x][y];
               if(data['payload'][x][y] === 1) {
                 element.className = 'cell pos';
               } else {
