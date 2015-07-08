@@ -1,0 +1,26 @@
+{
+  "name": "n-queens-html5",
+  "version": "0.0.2",
+  "homepage": "https://github.com/codydaig/n-queens-html5",
+  "description": "nQueens Solver",
+  "main": "Board.html",
+  "keywords": [
+    "nqueens"
+  ],
+  "authors": [
+    "Cody B. Daig",
+    "Alex Castle"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "~3.3.5",
+    "underscore": "~1.8.3"
+  }
+}

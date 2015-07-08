@@ -1,32 +1,40 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
-  <title>N-Queens</title>
+  
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <title>N-Queens Solver</title>
 
-  <script src="lib/backbone.js"></script>
-  <script src="lib/underscore.js"></script>
+  <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap-theme.min.css" />
 
-  <script src="nqueens.js"></script>
-  <script src="BoardView.js"></script>
+  <link rel="stylesheet" href="board.css" />
+
+  
 </head>
 
 <body>
+  <div class="container">
+    <div class="header">
+      <h1>nQueens Solver</h1>
+      <p class="lead">Show every possible solution for n queens in a n by n board.</p>
+    </div>
 
-<div id="message">
-</div>
+    <div class="board">
+    </div>
+  </div>
 
-<script>
+  <script src="bower_components/jquery/dist/jquery.min.js"></script>
+  <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+  <script src="bower_components/underscore/underscore-min.js"></script>
 
-  var worker = new Worker('worker.js');
-  var board = new Board({n:5});
-  worker.postMessage(board);
-
-  worker.addEventListener('message', function(e){
-    var data = e.data;
-    document.getElementById('message').textContent = e.data;
-  });
-
-</script>
+  <script src="ChessBoard.js"></script>
+  <script src="ChessBoardView.js"></script>
+  <script src="board2.js"></script>
 
 </body>
 

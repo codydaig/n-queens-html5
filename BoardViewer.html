@@ -79,8 +79,6 @@
               if (minHeat === undefined || heatmap[x][y] < minHeat) {
                 minHeat = heatmap[x][y];
               }
-              
-              //cell.style.background = 'rgb(100, 150, 200)';
 
             }
           }
@@ -108,7 +106,6 @@
         if(data['msg'] === 'found'){
           var rowData = data['payload'];
           //console.log(rowData);
-          //debugger;
           count++;
           counter.innerHTML = "So for your browser has found <strong>" + count + "</strong> solutions to the problem.";
           for(var x = 0; x < rowData.length; x++) {
@@ -128,32 +125,8 @@
               }
             }
           }
-          //document.getElementById('results').textContent += data['payload'];
         }
       });
-      /*
-      window.displayBoard = function(matrix){
-        $('body').html(
-          new BoardView({
-            model: new Board(matrix)
-          }).render()
-        );
-      };
-      $(function(){
-        // this is a pre-baked solution for n-queens in the n = 4 case, rendered to the screen using our handy visualizer.
-        displayBoard([
-          [0, 1, 0, 0],
-          [0, 0, 0, 1],
-          [1, 0, 0, 0],
-          [0, 0, 1, 0]
-        ]);
-
-        var n = 4;
-        findNRooksSolution(n);
-        countNRooksSolutions(n);
-        findNQueensSolution(n);
-        countNQueensSolutions(n);
-      });*/
     </script>
     <div>The green indicates the least amount of times that position contianed a solution, <br />while the red indicates the most amount of times that position contained a solution.</div>
     <form method="GET">
